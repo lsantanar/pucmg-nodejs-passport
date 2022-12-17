@@ -25,9 +25,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/auth", authRouter);
+app.use("/admin", authRouter);
 
 app.get("/", isLoggedIn, (req, res) => {
     res.render("index", { user: req.user });
+});
+app.get("/admin", isLoggedIn, (req, res) => {
+    res.render("admin", { user: req.user });
 });
 
 app.listen(3000, () => {

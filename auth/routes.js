@@ -25,3 +25,14 @@ authRouter.get(
         res.redirect("/");
     }
 );
+
+authRouter.get("/admin", ensureAuthenticated, function (req, res) {
+    res.render("admin", { user: req.session.passport.user });
+});
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
